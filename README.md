@@ -6,4 +6,4 @@ The TekBox system should be installed and configured in the following order for 
 3. Locker
 4. iOS App
 
-After following instructions for each section, 
+After following instructions for each section, sign in with TekBox Dashboard or TekBox for iOS to use the system.
