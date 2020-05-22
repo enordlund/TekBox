@@ -1,0 +1,190 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.9.4
+-- http://www.phpmyadmin.net
+--
+-- Host: oniddb
+-- Generation Time: May 21, 2020 at 08:40 PM
+-- Server version: 5.5.62
+-- PHP Version: 5.2.6-1+lenny16
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `nordlune-db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-App-Tokens`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-App-Tokens` (
+  `Account-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Token-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Token-Hashed` text COLLATE utf8_unicode_ci NOT NULL,
+  `Device-Model` text COLLATE utf8_unicode_ci NOT NULL,
+  `Vendor-ID` text COLLATE utf8_unicode_ci NOT NULL,
+  `DateTime-Created` datetime NOT NULL,
+  `DateTime-Accessed` datetime NOT NULL,
+  `Last-IP` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Boxes`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Boxes` (
+  `Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Hash` text COLLATE utf8_unicode_ci NOT NULL,
+  `OTP-Secret` text COLLATE utf8_unicode_ci NOT NULL,
+  `Cluster-UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Admin1-UUID` text COLLATE utf8_unicode_ci,
+  `Should-Prep` tinyint(1) NOT NULL,
+  `Last-IP` text COLLATE utf8_unicode_ci NOT NULL,
+  `Modifier-UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Is-Loaded` tinyint(1) NOT NULL,
+  `Row` int(11) NOT NULL,
+  `Column` int(11) NOT NULL,
+  `Unlock-Until` datetime NOT NULL,
+  `Order-UUID` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Clusters`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Clusters` (
+  `Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Rows` int(11) NOT NULL DEFAULT '1',
+  `Columns` int(11) NOT NULL DEFAULT '1',
+  `Disarm-For-Minutes` int(11) NOT NULL DEFAULT '1',
+  `Unlock-For-Minutes` int(11) NOT NULL DEFAULT '1',
+  `Latitude` double DEFAULT NULL,
+  `Longitude` double DEFAULT NULL,
+  `Admin1-UUID` text COLLATE utf8_unicode_ci,
+  `Admin2-UUID` text COLLATE utf8_unicode_ci,
+  `Admin3-UUID` text COLLATE utf8_unicode_ci,
+  `Admin4-UUID` text COLLATE utf8_unicode_ci,
+  `Admin5-UUID` text COLLATE utf8_unicode_ci,
+  `Manager1-UUID` text COLLATE utf8_unicode_ci,
+  `Manager2-UUID` text COLLATE utf8_unicode_ci,
+  `Manager3-UUID` text COLLATE utf8_unicode_ci,
+  `Manager4-UUID` text COLLATE utf8_unicode_ci,
+  `Manager5-UUID` text COLLATE utf8_unicode_ci,
+  `Manager6-UUID` text COLLATE utf8_unicode_ci,
+  `Manager7-UUID` text COLLATE utf8_unicode_ci,
+  `Manager8-UUID` text COLLATE utf8_unicode_ci,
+  `Manager9-UUID` text COLLATE utf8_unicode_ci,
+  `Manager10-UUID` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Invitations`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Invitations` (
+  `Invitation-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Location-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Inviter-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Invitee-Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `Invitee-Email` text COLLATE utf8_unicode_ci NOT NULL,
+  `Invitee-Is-Admin` tinyint(1) NOT NULL,
+  `Date-Time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Offline-Keys`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Offline-Keys` (
+  `Locker-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Secret` text COLLATE utf8_unicode_ci NOT NULL,
+  `Expires` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Orders`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Orders` (
+  `UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Order-Number` text COLLATE utf8_unicode_ci NOT NULL,
+  `Customer-Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `Customer-Email` text COLLATE utf8_unicode_ci NOT NULL,
+  `Is-Active` tinyint(1) NOT NULL,
+  `Email-Did-Send` tinyint(1) NOT NULL,
+  `DateTime` datetime NOT NULL,
+  `Box-UUID` text COLLATE utf8_unicode_ci,
+  `Void-DateTime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Requests`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Requests` (
+  `Box-UUID` text COLLATE utf8_unicode_ci,
+  `Request-UUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `DateTime` datetime NOT NULL,
+  `Request` text COLLATE utf8_unicode_ci NOT NULL,
+  `IP-Address` text COLLATE utf8_unicode_ci NOT NULL,
+  `Response` text COLLATE utf8_unicode_ci,
+  `Confirmation` text COLLATE utf8_unicode_ci,
+  `Error` text COLLATE utf8_unicode_ci NOT NULL,
+  `New-IP` tinyint(1) NOT NULL,
+  `Modifier-UUID` text COLLATE utf8_unicode_ci,
+  `Location-UID` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Setup-Sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Setup-Sessions` (
+  `Session-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Locker-UID` text COLLATE utf8_unicode_ci NOT NULL,
+  `DateTime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TekBox-Users`
+--
+
+CREATE TABLE IF NOT EXISTS `TekBox-Users` (
+  `Full-Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `Email` text COLLATE utf8_unicode_ci NOT NULL,
+  `OSUUID` text COLLATE utf8_unicode_ci NOT NULL,
+  `Last-IP` text COLLATE utf8_unicode_ci NOT NULL,
+  `First-Name` text COLLATE utf8_unicode_ci NOT NULL,
+  `Last-Name` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Visits`
+--
+
+CREATE TABLE IF NOT EXISTS `Visits` (
+  `DateTime` datetime NOT NULL,
+  `Address` text CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
