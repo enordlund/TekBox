@@ -13,8 +13,8 @@
 const char* host = "web.engr.oregonstate.edu";
 #define httpsPort 443
 
-#define LOCKER_REQUEST_PATH			"/~nordlune/TestBox/locker/request"
-#define LOCKER_CONFIRMATION_PATH	"/~nordlune/TestBox/locker/confirm"
+#define LOCKER_REQUEST_PATH			"/~nordlune/TekBox/locker/request"
+#define LOCKER_CONFIRMATION_PATH	"/~nordlune/TekBox/locker/confirm"
 
 
 
@@ -799,6 +799,7 @@ bool rootCertificateIsReady() {
 	if (cacheRootCertificate() == true) {
 		return true;
 	} else {
+		// root certificate is not in the file system.
 		String tempCert = readFile(SPIFFS, "/tempCert.txt");
 		if (tempCert.length() > 0) {
 			// test the certificate
@@ -1004,7 +1005,11 @@ bool cacheWAPCredentials() {
 
 
 bool wifiIsReady() {
-	if (cacheWAPCredentials() == true) {
+	if (storedWapCredentials.isStored == true) {
+		// credentials are already in memory
+		Serial.println("CREDENTIALS STORED");
+		return tryStoredWapCredentials();
+	} else if (cacheWAPCredentials() == true) {
 		return tryStoredWapCredentials();
 	}
 }
@@ -1025,7 +1030,20 @@ void eraseCredentials() {
 
 
 
-
+void setDefaultWiFiCredentials(String ssid, String identity, String password, String authenticationModeKey) {
+	
+	// translate the key to wifi_auth_mode_t type
+	wifi_auth_mode_t authMode = translateEncryptionTypeString(authenticationModeKey);
+	
+	// create credentials struct
+	WapCredentials credentials = newWapCredentials(ssid, identity, password, authMode);
+	
+	// cache the credentials
+	storeWapCredentials(credentials);
+	
+	// write root_ca to the file that is referenced on boot
+	writeFile(SPIFFS, "/tempCert.txt", root_ca) == true;
+}
 
 
 
