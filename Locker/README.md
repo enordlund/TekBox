@@ -39,6 +39,34 @@ Go to the `hashword` endpoint of TekBox Server to generate a random UID/password
 #### Note
 It is recommended to maintain a secure list of UID/password pairs, because re-uploading should be assumed to be necessary in the future (see Maintenance below).
 
+### Setup without the mobile app
+Adding a locker to an existing location is currently supported automatically with the mobile app. Without the mobile app, a locker can be added (without an offline key) by modifying TekBox.ino, and the database.
+
+#### Setting default Wi-Fi credentials
+TekBox.ino includes a commented line in `setup()`:
+
+`setDefaultWiFiCredentials("name", "identity", "password", "AUTH_MODE");`
+
+This function establishes default Wi-Fi credentials that will be tried by a locker before entering Offline Mode. Each string should be replaced with the desired values. Changing `"identity"` or `"password"` may not be necessary depending on the selected authentication mode:
+
+- `"OPEN"`: Name required
+- `"WEP"`: Name and password required
+- `"WPA_PSK"`: Name and password required
+- `"WPA2_PSK"`: Name and password required
+- `"WPA_WPA2_PSK"`: Name and password required
+- `"WPA2_ENTERPRISE"`: Name, identity and password required
+
+#### Adding a locker to a location
+The following columns should be populated in a locker's database row (in TekBox-Boxes) to add a locker to a location:
+
+- `Cluster-UUID`: The UID of the desired location
+- `Row`: The row value for the locker's position in the location
+- `Column`: The column value for the locker's position in the location
+
+Row/column coordinates reference a bottom-left origin, starting at (0, 0).
+
+The location row (in TekBox-Clusters) should be modified to match the new number of rows and columns. For info on creating a new location, see the TekBox Database README.
+
 ## Uploading to a New Locker
 
 ### Sketch Upload
