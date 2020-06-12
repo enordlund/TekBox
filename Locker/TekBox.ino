@@ -39,16 +39,16 @@ void setup() {
 
 	pinMode(SOLENOID, OUTPUT);
 
- pinMode(DISPLAY_POWER, OUTPUT);
- digitalWrite(DISPLAY_POWER, HIGH);
+	pinMode(DISPLAY_POWER, OUTPUT);
+	digitalWrite(DISPLAY_POWER, HIGH);
 
 	if(!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED, "/spiffs", 20)){
 		Serial.println("SPIFFS Mount Failed");
 		return;
 	}
 
- // Uncomment the following line to include default Wi-Fi credentials. See Locker README for more.
-// setDefaultWiFiCredentials("name", "identity", "password", "AUTH_MODE");
+	// Uncomment the following line to include default Wi-Fi credentials. See Locker README for more.
+//	setDefaultWiFiCredentials("name", "identity", "password", "AUTH_MODE");
 
  
 
