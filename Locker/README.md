@@ -74,7 +74,8 @@ After configuring the sketch and database with a new UID and password, it's time
 1. Plug in the locker unit via USB.
 2. Select the corresponding port in the Arduino IDE.
 3. Match the following board settings:
-	/board-configuration.png
+
+	![alt text](./board-configuration.png)
 4. After initiating the upload, the Arduino IDE will compile and begin connecting to the locker unit. At this point, hold down SW2 on the locker unit motherboard while pressing and releasing SW1. Continue holding SW2 until the Arduino IDE indicates that the upload is making progress.
 
 After the upload completes, the locker unit will enter offline mode to be configured with the mobile app via Bluetooth.
